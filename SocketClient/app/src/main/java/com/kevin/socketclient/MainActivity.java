@@ -18,16 +18,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
+//如果某个类 后面使用 implements，并指定了相应的接口，那在该类下面就需要实现相应接口的方法。
     EditText ip;
     EditText editText;
     TextView text;
     Button connect;
     Button send;
 
-    Socket socket = null;
-    BufferedWriter writer = null;
-    BufferedReader reader = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +40,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         connect.setOnClickListener(this);
         send.setOnClickListener(this);
 
+        /*connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.connect:
-                Toast.makeText(MainActivity.this, "点击链接", Toast.LENGTH_SHORT).show();
                 connect();
                 break;
             case R.id.send:
@@ -59,11 +63,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    Socket socket = null;
+    BufferedWriter writer = null;
+    BufferedReader reader = null;
+
     private void send() {
         text.append("speak:"+editText.getText().toString()+"\n");
         try {
             writer.write(editText.getText().toString()+"\n");
-            writer.flush();
+            writer.flush();// 刷新该流的缓冲
         } catch (IOException e) {
             e.printStackTrace();
         }

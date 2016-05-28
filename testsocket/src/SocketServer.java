@@ -32,6 +32,7 @@ public class SocketServer {
 					while (true) {
 						byte[] b = new byte[1024];
 						int len = in.read(b, 0, b.length);  //¶ÁÈ¡Êý¾Ý
+						
 						String receive = new String(b, 0, len);
 						System.out.println(receive);
 						for (Socket temp : clients) {
